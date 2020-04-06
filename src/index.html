@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="css/main.css" rel="stylesheet"/>
+</head>
+<body>
+
+<h2>Anchor strategy</h2>
+<div class="animation anchor" data-sa-anchor="fadeIn" data-anchor-target="#anchor" data-viewport-top="25%" data-viewport-bottom="25%">
+    I'm a fixed element
+</div>
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+<h2>Standard strategy</h2>
+<div class="animation active" data-sa="fadeIn" data-vp-offset-top="20%" data-vp-offset-bottom="20%">
+    Fade in element
+</div>
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+<div id="anchor" style="background: yellow;height: 300px">
+    I'm an anchor
+</div>
+<h2>Scroll strategy</h2>
+<div class="animation" data-sa-scroll="fadeIn" data-sa-duration="3434">
+    I'm a scroll strategy
+</div>
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="../dist/simple-animation.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        SimpleAnimation.addAnimation("fadeIn", {
+            opacity: [0, 1],
+            easing: 'linear',
+            duration: 1500
+        }).addAnimation("fadeOut", {
+            opacity: [1, 0],
+            easing: 'linear',
+            duration: 1500
+        });
+
+        $("[data-sa],[data-sa-scroll],[data-sa-anchor]").simpleAnimation();
+    });
+</script>
+</body>
+</html>

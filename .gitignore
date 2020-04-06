@@ -1,0 +1,6 @@
+.idea
+.DS_Store
+node_modules
+dist/simple-animation.js
+src/**/*.js
+src/**/*.js.map

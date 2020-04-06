@@ -1,0 +1,33 @@
+{
+  "name": "simple-animation",
+  "version": "0.1.0-beta",
+  "description": "Anime HTML interface implementation.",
+  "keywords": [
+    "gulp"
+  ],
+  "scripts": {
+    "dev": "webpack --watch --mode=development",
+    "build": "webpack --devtool=- -o dist/simple-animation.min.js"
+  },
+  "bin": {},
+  "author": "Arjen Trouwborst",
+  "license": "MIT",
+  "bugs": {
+    "url": ""
+  },
+  "devDependencies": {
+    "source-map-loader": "^0.2.4",
+    "ts-loader": "^4.0.1",
+    "typescript": "^2.7.2",
+    "webpack": "^4.0.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-stream": "^5.2.1"
+  },
+  "dependencies": {
+    "animejs": "^3.1.0",
+    "rxjs": "^6.5.4"
+  },
+  "engines": {
+    "node": ">=8"
+  }
+}
