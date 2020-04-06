@@ -38,7 +38,7 @@ export class ViewportStrategy implements Strategy {
                 this.status.position = 1;
                 this.status.played = true;
             }
-        } else {
+        } else if((options.animation.repeat === false && this.status.played === false) || options.animation.repeat === true) {
             let elementPosition = -1;
 
             //Determine if element is exit or enter the viewport
