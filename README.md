@@ -4,7 +4,7 @@ Simple Animation (sa) is a HTML interface implementation for Anime.js.
 Each element can contain three different animation strategies how to interact with anime.js
 
 ## Viewport vs element
-Each element will has it's own perspective of the client viewport matrix.
+Each element will has its own perspective of the client viewport matrix.
 Hereby you can determine for each animation element the viewport size and how the animation interacts with it's "own" viewport.
 
 ## Standard strategy

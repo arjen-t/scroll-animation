@@ -22,9 +22,6 @@ module.exports = {
             "animejs": path.resolve(__dirname, 'node_modules/animejs/lib/anime.es.js')
         }
     },
-    externals: {
-        x: 'animejs'
-    },
     output: {
         filename: 'simple-animation.js',
         path: path.resolve(__dirname, 'dist'),
