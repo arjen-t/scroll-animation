@@ -1,13 +1,15 @@
 import {CanvasEvent} from "../canvas/canvasEvent";
-import {Scroll} from "../scroll/scroll";
 import {Strategy} from "./strategy";
 import anime from 'animejs';
 
 export class ViewportStrategy implements Strategy {
 
-    private animationScroll: Scroll = null;
-
     private animation: anime;
+
+    private status: any = {
+        position: -1,
+        played: false
+    };
 
     constructor(animation: anime) {
         this.animation = animation;
@@ -16,47 +18,44 @@ export class ViewportStrategy implements Strategy {
     public animate(event: CanvasEvent, options: any): void {
         const viewport = event.canvas.viewport;
 
-        let elementOffsetTop = (event.canvas.scroll.current.y + viewport.height) - event.canvas.element.top - viewport.bottom;
+        let elementOffsetEnter = (event.canvas.scroll.current.y + viewport.height) - event.canvas.element.top - viewport.bottom;
+        let elementOffsetExit = (elementOffsetEnter - event.canvas.element.height) * -1;
+        let enterScroll = 'down';
 
         if (options.viewport.trigger === 'top') {
-            elementOffsetTop = elementOffsetTop - (viewport.height - viewport.top - viewport.bottom);
-        }
+            //Reverse the exit en enter offset
+            elementOffsetExit = elementOffsetEnter - (viewport.height - viewport.top - viewport.bottom);
+            elementOffsetEnter = (elementOffsetExit - event.canvas.element.height) * -1;
 
-        const elementOffsetBottom = (elementOffsetTop - event.canvas.element.height) * -1;
+            enterScroll = 'up';
+        }
 
         //Catch first event and determine element is in viewport
         if (event.type === 'init') {
-            if (options.viewport.trigger === 'top') {
-                if (elementOffsetBottom > 0) {
-                    this.animation.play();
-                    this.animationScroll = event.canvas.scroll.current;
-                }
-            } else {
-                if (elementOffsetTop > 0) {
-                    this.animation.play();
-                    this.animationScroll = event.canvas.scroll.current;
-                }
+            if (elementOffsetEnter > 0) {
+                this.animation.play();
+
+                this.status.position = 1;
+                this.status.played = true;
             }
-        } else if (event.canvas.element.height > elementOffsetTop && event.canvas.element.height > elementOffsetBottom) {
-            //Continue when element is in viewport
-            if (this.animationScroll === null || (options.animation.repeat === true && event.canvas.scroll.current.direction !== this.animationScroll.direction)) {
+        } else {
+            let elementPosition = -1;
 
-                //Determine if animation should be played
-                if (this.animationScroll === null ||
-                    this.animationScroll.direction !== 'init' ||
-                    (options.viewport.trigger === 'top' && event.canvas.scroll.current.direction === 'down') ||
-                    (options.viewport.trigger !== 'top' && event.canvas.scroll.current.direction === 'up')) {
+            //Determine if element is exit or enter the viewport
+            if (enterScroll === event.canvas.scroll.current.direction && elementOffsetExit <= event.canvas.element.height && elementOffsetEnter >= 0) {
+                elementPosition = 1;
+            } else if (enterScroll !== event.canvas.scroll.current.direction && elementOffsetExit >= 0 && elementOffsetEnter < event.canvas.element.height) {
+                elementPosition = 0;
+            }
 
-                    //If true the animation was played before so let's reverse it
-                    if (this.animationScroll !== null) {
-                        this.animation.reverse();
-                    }
-
-                    this.animation.play();
+            if ((elementPosition > -1 || event.type === 'resize') && elementPosition !== this.status.position) {
+                if (this.status.played) {
+                    this.animation.reverse();
                 }
 
-                //Store current scroll
-                this.animationScroll = event.canvas.scroll.current;
+                this.animation.play();
+                this.status.position = elementPosition;
+                this.status.played = true;
             }
         }
     }
