@@ -44,5 +44,8 @@ export class AnchorStrategy implements Strategy {
             //Store current scroll
             this.animationScroll = event.canvas.scroll.current;
         }
+
+        //Cleanup variables
+        anchorOffset = null;
     }
 }

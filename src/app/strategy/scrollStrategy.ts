@@ -11,9 +11,8 @@ export class ScrollStrategy implements Strategy {
     }
 
     animate(event: CanvasEvent, options: any): void {
-        const viewport = event.canvas.viewport;
-
-        const viewportHeight = (viewport.height - viewport.top - viewport.bottom);
+        let viewport = event.canvas.viewport;
+        let viewportHeight = (viewport.height - viewport.top - viewport.bottom);
         let elementScrollOffset = 0;
 
         if (options.scroll.trigger === 'top') {
@@ -28,10 +27,16 @@ export class ScrollStrategy implements Strategy {
         }
 
         //Calc the scroll percentage
-        const scroll: any = ((elementScrollOffset / viewportHeight)).toFixed(2);
+        let scroll: any = ((elementScrollOffset / viewportHeight)).toFixed(2);
 
         if (scroll >= 0 || scroll <= 1 || event.type === 'init') {
             this.animation.seek(scroll * this.animation.duration);
         }
+
+        //Cleanup variables
+        viewport = null,
+            viewportHeight = null,
+            elementScrollOffset = null,
+            scroll = null;
     }
 }

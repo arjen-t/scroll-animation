@@ -19,17 +19,27 @@ export class CanvasHandler {
 
         this.canvasObservable = new BehaviorSubject(new CanvasEvent(this.canvas, 'init'));
 
-        fromEvent(window, 'resize').pipe(debounceTime(100)).subscribe(event => {
-            this.canvas = this.createCanvas(element, options);
-            this.canvas.scroll = this.scrollHandler.getScroll();
+        fromEvent(window, 'resize')
+            .pipe(debounceTime(100))
+            .subscribe(() => {
+                this.canvas = this.createCanvas(element, options);
+                this.canvas.scroll = this.scrollHandler.getScroll();
 
-            this.canvasObservable.next(new CanvasEvent(this.canvas, 'resize'));
-        });
+                this.canvasObservable.next(new CanvasEvent(this.canvas, 'resize'));
+            }, (error) => {
+                this.canvasObservable.error(error);
+            }, () => {
+                this.canvasObservable.complete();
+            });
 
         this.scrollHandler.subscribe(scroll => {
             this.canvas.scroll = scroll;
 
             this.canvasObservable.next(new CanvasEvent(this.canvas, 'scroll'));
+        }, (error) => {
+            this.canvasObservable.error(error);
+        }, () => {
+            this.canvasObservable.complete();
         });
     }
 

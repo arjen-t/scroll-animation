@@ -17,13 +17,17 @@ export class ScrollHandler {
         this.scroll = new Scroll($(window).scrollTop(), $(window).scrollLeft(), 'init');
 
         fromEvent(window, 'scroll').pipe(
-            map((event: any) => {
+            map(() => {
                 return this.getScroll();
             })
         ).subscribe((scroll: any) => {
             this.scroll = scroll.current;
 
             this.scrollObservable.next(scroll);
+        }, (error) => {
+            this.scrollObservable.error(error);
+        }, () => {
+            this.scrollObservable.complete();
         });
     }
 

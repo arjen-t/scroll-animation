@@ -7,7 +7,7 @@ Each element can contain three different animation strategies how to interact wi
 Each element will has its own perspective of the client viewport matrix.
 Hereby you can determine for each animation element the viewport size and how the animation interacts with it's "own" viewport.
 
-## Standard strategy
+## Viewport strategy
 ```html
 <element data-sa="an animation"></element>
 ```

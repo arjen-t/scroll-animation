@@ -16,19 +16,18 @@ export class ViewportStrategy implements Strategy {
     }
 
     public animate(event: CanvasEvent, options: any): void {
-        const viewport = event.canvas.viewport;
-
+        let viewport = event.canvas.viewport;
         let elementOffsetEnter = (event.canvas.scroll.current.y + viewport.height) - event.canvas.element.top - viewport.bottom;
-        let elementOffsetExit = (elementOffsetEnter - event.canvas.element.height) * -1;
         let enterScroll = 'down';
 
         if (options.viewport.trigger === 'top') {
-            //Reverse the exit en enter offset
-            elementOffsetExit = elementOffsetEnter - (viewport.height - viewport.top - viewport.bottom);
-            elementOffsetEnter = (elementOffsetExit - event.canvas.element.height) * -1;
+            //Reverse the enter offset
+            elementOffsetEnter = (((event.canvas.scroll.current.y - event.canvas.element.top) + viewport.top) * -1) + event.canvas.element.height;
 
             enterScroll = 'up';
         }
+
+        let elementOffsetExit = (elementOffsetEnter) * -1;
 
         //Catch first event and determine element is in viewport
         if (event.type === 'init') {
@@ -38,7 +37,7 @@ export class ViewportStrategy implements Strategy {
                 this.status.position = 1;
                 this.status.played = true;
             }
-        } else if((options.animation.repeat === false && this.status.played === false) || options.animation.repeat === true) {
+        } else if ((options.animation.repeat === false && this.status.played === false) || options.animation.repeat === true) {
             let elementPosition = -1;
 
             //Determine if element is exit or enter the viewport
@@ -48,7 +47,8 @@ export class ViewportStrategy implements Strategy {
                 elementPosition = 0;
             }
 
-            if ((elementPosition > -1 || event.type === 'resize') && elementPosition !== this.status.position) {
+            //Determine if elementPosition cause a animation trigger
+            if (elementPosition > -1 && elementPosition !== this.status.position) {
                 if (this.status.played) {
                     this.animation.reverse();
                 }
@@ -57,6 +57,14 @@ export class ViewportStrategy implements Strategy {
                 this.status.position = elementPosition;
                 this.status.played = true;
             }
+
+            elementPosition = null;
         }
+
+        //Cleanup variables
+        viewport = null,
+            elementOffsetEnter = null,
+            enterScroll = null,
+            elementOffsetExit = null;
     }
 }

@@ -27,16 +27,21 @@ export default class SimpleAnimation {
             this.canvasHandler = new CanvasHandler(this.element, options);
             this.canvasHandler.subscribe(event => {
                 strategyContainer.animate(event, options);
+            }, (error) => {
+                options = null;
+                strategyContainer = null;
+            }, () => {
+                options = null;
+                strategyContainer = null;
             });
         } else {
-            this.element = null;
             options = null;
             strategyContainer = null;
         }
     }
 
     private createStrategy(options: any): StrategyContainer {
-        const animation = this.element.data('sa'),
+        let animation = this.element.data('sa'),
             animationAnchor = this.element.data('saAnchor'),
             animationScroll = this.element.data('saScroll');
 
@@ -72,7 +77,10 @@ export default class SimpleAnimation {
             }
         }
 
-        animationFactory = null;
+        animationFactory = null,
+            animation = null,
+            animationAnchor = null,
+            animationScroll = null;
 
         return container;
     }
