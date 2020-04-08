@@ -22,7 +22,7 @@ export class ScrollStrategy implements Strategy {
         }
 
         //Increase or decrease element scroll speed
-        if (options.scroll.speed !== 0) {
+        if (options.scroll.speed > 0) {
             elementScrollOffset = elementScrollOffset + (elementScrollOffset * (options.scroll.speed / 100));
         }
 

@@ -94,7 +94,7 @@ export default class SimpleAnimation {
             viewportBottom = this.element.data('vpOffsetBottom'),
             scrollTrigger = this.element.data('scrollTrigger'),
             scrollSpeed = this.element.data('scrollSpeed'),
-            scrollDuration = this.element.data('scrollSpeed'),
+            scrollDuration = this.element.data('scrollDuration'),
             duration = this.element.data('saDuration');
 
         return {
@@ -110,7 +110,7 @@ export default class SimpleAnimation {
             },
             scroll: {
                 trigger: scrollTrigger || 'bottom',
-                speed: scrollSpeed || 0,
+                speed: (scrollSpeed !== undefined ? parseFloat(scrollSpeed) : 0),
                 duration: (scrollDuration !== undefined ? scrollDuration : null)
             },
             anchor: {
