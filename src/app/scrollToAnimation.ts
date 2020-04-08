@@ -19,8 +19,6 @@ export default class ScrollToAnimation {
                 offset = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * (offset / 100);
             }
 
-            console.log(offset);
-
             self.scrollTo(event.currentTarget.getAttribute('href'), duration, offset);
         });
 
@@ -38,7 +36,7 @@ export default class ScrollToAnimation {
             }
         }
 
-        if (offset > 0) {
+        if (offset !== undefined) {
             scrollTop = scrollTop + offset;
         }
 
