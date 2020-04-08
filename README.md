@@ -1,13 +1,17 @@
 # simple-animation
 
 Simple Animation (sa) is a HTML interface implementation for Anime.js.
+
+
+## Scroll animation
+Trigger animation when the element is entering the viewport.
 Each element can contain three different animation strategies how to interact with anime.js
 
-## Viewport vs element
+### Viewport vs element
 Each element will has its own perspective of the client viewport matrix.
 Hereby you can determine for each animation element the viewport size and how the animation interacts with it's "own" viewport.
 
-## Viewport strategy
+### Viewport strategy
 ```html
 <element data-sa="an animation"></element>
 ```
@@ -66,7 +70,7 @@ When the element exit the viewport the animation will be played reverse.
     </tbody>
 </table>
 
-## Scroll strategy
+### Scroll strategy
 ```html
 <element data-sa-scroll="an animation"></element>
 ```
@@ -126,7 +130,7 @@ When scrolling out the viewport the animation will be played reverse based on th
     </tbody>
 </table>
 
-## Anchor strategy
+### Anchor strategy
 ```html
 <element data-sa-anchor="an animation"></element>
 ```
@@ -157,10 +161,39 @@ By scrolling up and the element bottom passes by the anchor element the animatio
     </tbody>
 </table>
 
-## How to initialise Simple Animation?
+## How to initialise scroll animation?
 ```javascript
 $(document).ready(function () {
     $("[data-sa],[data-sa-scroll],[data-sa-anchor]").simpleAnimation();
+});
+``` 
+
+## Scroll to animation
+Smooth scroll to animation.
+```html
+<a href="#elementId">An anchor link</a>
+```
+<table>
+    <thead>
+        <td>Property</th>
+        <td>Input</th>
+        <td>Description</th>
+        <td>Default</th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>data-sa-duration</td>
+            <td>number</td>
+            <td>Overwrite the default duration of the scroll to animation.</td>
+            <td>750</td>
+        </tr>
+    </tbody>
+</table>
+
+## How to initialise scroll to animation?
+```javascript
+$(document).ready(function () {
+    $("a[href^='#']").scrollToAnimation();
 });
 ``` 
 

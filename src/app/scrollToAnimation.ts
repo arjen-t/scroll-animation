@@ -4,11 +4,9 @@ declare var $: any;
 
 export default class ScrollToAnimation {
 
-    private readonly scrollTarget: any;
     private readonly scrollSpeed: number = 750;
 
     constructor(element: any) {
-        this.scrollTarget = window.document.scrollingElement || window.document.body || window.document.documentElement;
         const self = this;
 
         const duration = element.data('sa-duration');
@@ -32,8 +30,9 @@ export default class ScrollToAnimation {
             }
         }
 
+        anime.remove("html, body",);
         anime({
-            targets: this.scrollTarget,
+            targets: "html, body",
             scrollTop: scrollTop,
             duration: this.scrollSpeed,
             easing: 'easeInOutQuad',
