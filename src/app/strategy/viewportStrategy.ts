@@ -6,6 +6,13 @@ export class ViewportStrategy implements Strategy {
 
     private animation: anime;
 
+    /**
+     * Position status
+     *
+     * -1 Idle
+     * 0 Exit
+     * 1 Enter
+     */
     private status: any = {
         position: -1,
         played: false
@@ -35,27 +42,25 @@ export class ViewportStrategy implements Strategy {
                 this.animation.play();
 
                 this.status.position = 1;
-                this.status.played = true;
             }
-        } else if ((options.animation.repeat === false && this.status.played === false) || options.animation.repeat === true) {
+        } else if ((options.animation.repeat === false && this.status.position === -1) || options.animation.repeat === true) {
             let elementPosition = -1;
 
             //Determine if element is exit or enter the viewport
-            if (enterScroll === event.canvas.scroll.current.direction && elementOffsetExit <= event.canvas.element.height && elementOffsetEnter >= 0) {
+            if (event.canvas.scroll.current.direction === enterScroll && elementOffsetExit <= event.canvas.element.height && elementOffsetEnter >= 0) {
                 elementPosition = 1;
-            } else if (enterScroll !== event.canvas.scroll.current.direction && elementOffsetExit >= 0 && elementOffsetEnter < event.canvas.element.height) {
+            } else if (event.canvas.scroll.current.direction !== enterScroll && elementOffsetEnter <= event.canvas.element.height && elementOffsetExit >= 0 && this.status.position === 1) {
                 elementPosition = 0;
             }
 
             //Determine if elementPosition cause a animation trigger
             if (elementPosition > -1 && elementPosition !== this.status.position) {
-                if (this.status.played) {
+                if (this.status.position > -1) {
                     this.animation.reverse();
                 }
 
                 this.animation.play();
                 this.status.position = elementPosition;
-                this.status.played = true;
             }
 
             elementPosition = null;
