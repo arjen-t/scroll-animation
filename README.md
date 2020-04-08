@@ -187,6 +187,12 @@ Smooth scroll to animation.
             <td>Overwrite the default duration of the scroll to animation.</td>
             <td>750</td>
         </tr>
+        <tr>
+            <td>data-vp-ofsset-top</td>
+            <td>pixel/percentage</td>
+            <td>The top offset for where the scroll needs to stop.</td>
+            <td>0</td>
+        </tr>
     </tbody>
 </table>
 

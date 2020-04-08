@@ -4,22 +4,30 @@ declare var $: any;
 
 export default class ScrollToAnimation {
 
-    private readonly scrollSpeed: number = 750;
-
     constructor(element: any) {
         const self = this;
 
-        const duration = element.data('sa-duration');
-        this.scrollSpeed = (duration !== undefined ? parseInt(duration) : this.scrollSpeed);
+        let dataDuration = element.data('saDuration'),
+            dataOffset = element.data('vpOffsetTop');
+        const duration = (dataDuration !== undefined ? parseInt(dataDuration) : 750);
+        let offset = (dataOffset !== undefined ? parseInt(dataOffset) : 0);
 
         element.click(function (event: any) {
             event.preventDefault();
 
-            self.scrollTo(event.currentTarget.getAttribute('href'));
+            if (typeof dataOffset === 'string' && dataOffset.indexOf('%') > -1) {
+                offset = Math.max(document.documentElement.clientHeight, window.innerHeight || 0) * (offset / 100);
+            }
+
+            console.log(offset);
+
+            self.scrollTo(event.currentTarget.getAttribute('href'), duration, offset);
         });
+
+        dataDuration = null;
     }
 
-    private scrollTo(id: string) {
+    private scrollTo(id: string, scrollDuration: number, offset?: number) {
         let scrollTop: number = 0;
 
         if (id !== "#") {
@@ -30,11 +38,15 @@ export default class ScrollToAnimation {
             }
         }
 
+        if (offset > 0) {
+            scrollTop = scrollTop + offset;
+        }
+
         anime.remove("html, body",);
         anime({
             targets: "html, body",
             scrollTop: scrollTop,
-            duration: this.scrollSpeed,
+            duration: scrollDuration,
             easing: 'easeInOutQuad',
             loop: false
         });
