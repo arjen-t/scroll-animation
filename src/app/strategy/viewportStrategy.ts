@@ -7,16 +7,13 @@ export class ViewportStrategy implements Strategy {
     private animation: anime;
 
     /**
-     * Position status
+     * Status of the animation
      *
-     * -1 Idle
+     * -1 Not determine
      * 0 Exit
      * 1 Enter
      */
-    private status: any = {
-        position: -1,
-        played: false
-    };
+    private status: number = -1;
 
     constructor(animation: anime) {
         this.animation = animation;
@@ -41,29 +38,29 @@ export class ViewportStrategy implements Strategy {
             if (elementOffsetEnter > 0) {
                 this.animation.play();
 
-                this.status.position = 1;
+                this.status = 1;
             }
-        } else if ((options.animation.repeat === false && this.status.position === -1) || options.animation.repeat === true) {
-            let elementPosition = -1;
+        } else if ((options.animation.repeat === false && this.status === -1) || options.animation.repeat === true) {
+            let status: number = -1;
 
             //Determine if element is exit or enter the viewport
             if (event.canvas.scroll.current.direction === enterScroll && elementOffsetExit <= event.canvas.element.height && elementOffsetEnter >= 0) {
-                elementPosition = 1;
-            } else if (event.canvas.scroll.current.direction !== enterScroll && elementOffsetEnter <= event.canvas.element.height && elementOffsetExit >= 0 && this.status.position === 1) {
-                elementPosition = 0;
+                status = 1;
+            } else if (event.canvas.scroll.current.direction !== enterScroll && elementOffsetEnter <= event.canvas.element.height && elementOffsetExit >= 0 && this.status === 1) {
+                status = 0;
             }
 
             //Determine if elementPosition cause a animation trigger
-            if (elementPosition > -1 && elementPosition !== this.status.position) {
-                if (this.status.position > -1) {
+            if (status > -1 && status !== this.status) {
+                if (this.status > -1) {
                     this.animation.reverse();
                 }
 
                 this.animation.play();
-                this.status.position = elementPosition;
+                this.status = status;
             }
 
-            elementPosition = null;
+            status = null;
         }
 
         //Cleanup variables

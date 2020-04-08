@@ -6,18 +6,19 @@
     <link href="css/main.css" rel="stylesheet"/>
 </head>
 <body>
+<a href="#anchor" data-sa-durations="1000">Go down with duration of 1000ms</a>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 <h2>Anchor strategy</h2>
-<div class="animation anchor" data-sa-anchor="fadeIn" data-anchor-target="#anchor" data-viewport-top="25%" data-viewport-bottom="25%">
+<div class="animation anchor" data-sa-anchor="fadeIn" data-anchor-target="#anchor">
     I'm a fixed element
 </div>
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
 <h2>Standard strategy</h2>
-<div class="animation active" data-sa="fadeIn" data-vp-offset-top="20%" data-vp-offset-bottom="20%">
+<div class="animation active" data-sa="fadeIn" data-vp-offset-top="20%" data-vp-offset-bottom="20%" id="1">
     Fade in element
 </div>
 
@@ -26,31 +27,50 @@
 <div id="anchor" style="background: yellow;height: 300px">
     I'm an anchor
 </div>
+<a href="#" >Go up with standard duration</a>
 <h2>Scroll strategy</h2>
-<div class="animation" data-sa-scroll="fadeIn" data-sa-duration="3434">
+<div class="animation" data-sa-scroll="zoomOut" data-scroll-trigger="bottom" data-scroll-speed="80%" >
     I'm a scroll strategy
 </div>
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<h2>Second standard strategy</h2>
+<div class="animation active" data-sa="fadeIn" data-vp-offset-top="20%" data-vp-offset-bottom="20%" id="2">
+    Fade in element
+</div>
 
 <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous"></script>
-<script type="text/javascript" src="../dist/simple-animation.min.js"></script>
+<script type="text/javascript" src="../dist/simple-animation.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         SimpleAnimation.addAnimation("fadeIn", {
             opacity: [0, 1],
-            easing: 'linear',
-            duration: 1500
+            easing: 'linear'
         }).addAnimation("fadeOut", {
             opacity: [1, 0],
+            easing: 'linear'
+        });
+
+        SimpleAnimation.addAnimation('zoomIn', {
+            scale: [1.2, 0.7],
             easing: 'linear',
-            duration: 1500
+            loop: false,
+            autoplay: false
+        });
+
+        SimpleAnimation.addAnimation('zoomOut', {
+            scale: [0.7, 1],
+            easing: 'linear',
+            loop: false,
+            autoplay: false
         });
 
         $("[data-sa],[data-sa-scroll],[data-sa-anchor]").simpleAnimation();
+
+        $("a[href^='#']").scrollToAnimation();
     });
 </script>
 </body>
