@@ -3,17 +3,23 @@
   "version": "0.1.0-beta",
   "description": "Anime HTML interface implementation.",
   "keywords": [
-    "gulp"
+    "animejs",
+    "animation",
+    "scroll"
   ],
+  "author": "Arjen Trouwborst",
+  "license": "MIT",
+  "main": "dist/simple-animation.min.js",
   "scripts": {
     "dev": "webpack --watch --mode=development",
     "build": "webpack --devtool=- -o dist/simple-animation.min.js"
   },
-  "bin": {},
-  "author": "Arjen Trouwborst",
-  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arjen-t/simple-animation.git"
+  },
   "bugs": {
-    "url": ""
+    "url": "https://github.com/arjen-t/simple-animation/issues"
   },
   "devDependencies": {
     "source-map-loader": "^0.2.4",
