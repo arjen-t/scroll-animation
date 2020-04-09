@@ -1,5 +1,5 @@
 import {fromEvent, Subject, Subscription} from "rxjs";
-import {map} from "rxjs/operators";
+import {map, throttleTime} from "rxjs/operators";
 import {Scroll} from "./scroll";
 
 declare var $: any;
@@ -17,6 +17,7 @@ export class ScrollHandler {
         this.scroll = new Scroll($(window).scrollTop(), $(window).scrollLeft(), 'init');
 
         fromEvent(window, 'scroll').pipe(
+            throttleTime(50),
             map(() => {
                 return this.getScroll();
             })

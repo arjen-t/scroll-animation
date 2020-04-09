@@ -31,7 +31,7 @@ export default class ScrollToAnimation {
         if (id !== "#") {
             const elementTarget = $(id);
 
-            if (elementTarget !== undefined) {
+            if (elementTarget.length > 0) {
                 scrollTop = elementTarget.offset().top;
             }
         }

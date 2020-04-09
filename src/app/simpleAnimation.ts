@@ -27,6 +27,8 @@ export default class SimpleAnimation {
             this.canvasHandler = new CanvasHandler(this.element, options);
             this.canvasHandler.subscribe(event => {
                 strategyContainer.animate(event, options);
+
+                event = null;
             }, (error) => {
                 options = null;
                 strategyContainer = null;
