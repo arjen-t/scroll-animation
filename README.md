@@ -217,5 +217,6 @@ SimpleAnimation.addAnimation("fadeIn", {
  });
 ```
 
-## Dependency
-JQuery
+## External dependency
+External dependencies which should be added by the developer itself
+- JQuery
