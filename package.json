@@ -1,5 +1,5 @@
 {
-  "name": "@dbb/simple-animation",
+  "name": "@dbb-dev/simple-animation",
   "version": "0.1.0-beta",
   "description": "Anime HTML interface implementation.",
   "keywords": [
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "animejs": "^3.1.0",
-    "rxjs": "^6.5.4"
+    "rxjs": "^6.5.5"
   },
   "engines": {
     "node": ">=8"
