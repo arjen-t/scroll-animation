@@ -7,9 +7,12 @@ Simple Animation (sa) is a HTML interface implementation for Anime.js.
 Trigger animation when the element is entering the viewport.
 Each element can contain three different animation strategies how to interact with anime.js
 
+
 ### Viewport vs element
 Each element will has its own perspective of the client viewport matrix.
 Hereby you can determine for each animation element the viewport size and how the animation interacts with it's "own" viewport.
+
+![Image viewport vs element](viewport.png)
 
 ### Viewport strategy
 ```html
@@ -52,7 +55,7 @@ When the element exit the viewport the animation will be played reverse.
         <tr>
             <td>data-vp-trigger</td>
             <td>top/bottom</td>
-            <td>Which side is considered as entering the viewport.</td>
+            <td>Which viewport side is considered as enter and exit.</td>
             <td>bottom</td>
         </tr>
         <tr>
@@ -106,7 +109,7 @@ When scrolling out the viewport the animation will be played reverse based on th
         <tr>
             <td>data-scroll-trigger</td>
             <td>top/bottom</td>
-            <td>Which side is considered as entering the viewport.</td>
+            <td>Which viewport side is considered as enter and exit.</td>
             <td>bottom</td>
         </tr>
         <tr>
