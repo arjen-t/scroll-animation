@@ -2,6 +2,8 @@ import {Strategy} from "./strategy";
 import {CanvasEvent} from "../canvas/canvasEvent";
 import anime from 'animejs';
 
+declare var $: any;
+
 export class ScrollStrategy implements Strategy {
 
     private animation: anime;
@@ -16,7 +18,7 @@ export class ScrollStrategy implements Strategy {
         let elementScrollOffset = 0;
 
         if (options.scroll.trigger === 'top') {
-            elementScrollOffset = viewportHeight - (((event.canvas.scroll.current.y + viewport.height) - event.canvas.element.top) - viewport.top - event.canvas.element.height);
+            elementScrollOffset = ((event.canvas.scroll.current.y - event.canvas.element.top) - (event.canvas.element.height - viewport.top)) * -1;
         } else {
             elementScrollOffset = ((event.canvas.scroll.current.y + viewport.height) - event.canvas.element.top) - viewport.bottom;
         }
