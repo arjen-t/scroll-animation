@@ -1,14 +1,11 @@
 import {Strategy} from "./strategy";
 import {CanvasEvent} from "../canvas/canvasEvent";
-import anime from 'animejs';
-
-declare var $: any;
 
 export class ScrollStrategy implements Strategy {
 
-    private animation: anime;
+    private animation: any;
 
-    constructor(animation: anime) {
+    constructor(animation: any) {
         this.animation = animation;
     }
 

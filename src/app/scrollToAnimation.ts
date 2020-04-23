@@ -1,6 +1,5 @@
-import anime from "animejs";
-
 declare var $: any;
+declare var anime: any;
 
 export default class ScrollToAnimation {
 

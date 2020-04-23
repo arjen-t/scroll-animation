@@ -2,11 +2,9 @@
 
 Simple Animation (sa) is a HTML interface implementation for Anime.js.
 
-
 ## Scroll animation
 Trigger animation when the element is entering the viewport.
 Each element can contain three different animation strategies how to interact with anime.js
-
 
 ### Viewport vs element
 Each element will has its own perspective of the client viewport matrix.
@@ -219,7 +217,11 @@ SimpleAnimation.addAnimation("fadeIn", {
     duration: 1500
  });
 ```
+## Testing
+Plugin is tested against JQuery version 3.2 and Anime.js 3.1.0
 
 ## External dependency
 External dependencies which should be added by the developer itself
+- Anime.js
 - JQuery
+

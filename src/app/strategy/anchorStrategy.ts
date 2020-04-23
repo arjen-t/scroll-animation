@@ -1,17 +1,16 @@
 import {Strategy} from "./strategy";
 import {CanvasEvent} from "../canvas/canvasEvent";
 import {Scroll} from "../scroll/scroll";
-import anime from 'animejs';
 
 export class AnchorStrategy implements Strategy {
 
-    private animation: anime;
+    private animation: any;
 
     private animationScroll: Scroll = null;
 
     private anchorTop = 0;
 
-    constructor(animation: anime) {
+    constructor(animation: any) {
         this.animation = animation;
     }
 

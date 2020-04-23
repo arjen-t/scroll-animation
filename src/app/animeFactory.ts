@@ -1,7 +1,7 @@
 import SimpleAnimation from "./simpleAnimation";
-import anime from "animejs";
 
 declare var $: any;
+declare var anime: any;
 
 export abstract class AbstractAnimationFactory {
 
@@ -11,7 +11,7 @@ export abstract class AbstractAnimationFactory {
 
 export class AnimeFactory extends AbstractAnimationFactory {
 
-    public makeAnimation(name: string, options: any): anime | null {
+    public makeAnimation(name: string, options: any): Object | null {
         let animation = SimpleAnimation.getAnimation(name, null);
 
         if (animation !== null) {
@@ -64,7 +64,7 @@ export class AnimeFactory extends AbstractAnimationFactory {
         return animation;
     }
 
-    private createAnime(config: any): anime {
+    private createAnime(config: any): Object {
         if (config.timeline !== undefined) {
             const primaryConfig = $.extend({}, config),
                 timelineConfig = $.extend({}, config);

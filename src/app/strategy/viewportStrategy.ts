@@ -1,10 +1,9 @@
 import {CanvasEvent} from "../canvas/canvasEvent";
 import {Strategy} from "./strategy";
-import anime from 'animejs';
 
 export class ViewportStrategy implements Strategy {
 
-    private animation: anime;
+    private animation: any;
 
     /**
      * Status of the animation
@@ -15,7 +14,7 @@ export class ViewportStrategy implements Strategy {
      */
     private status: number = -1;
 
-    constructor(animation: anime) {
+    constructor(animation: any) {
         this.animation = animation;
     }
 
